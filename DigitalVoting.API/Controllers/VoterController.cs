@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DigitalVoting.API.Controllers
 {
     [ApiController]
-    [Route("api/Voter")]
+    [Route("api/voter")]
     public class VoterController : ControllerBase
     {
         private readonly IMediator _mediator;
