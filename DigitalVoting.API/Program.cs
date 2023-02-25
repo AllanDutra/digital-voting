@@ -1,4 +1,5 @@
 using DigitalVoting.API.Extensions;
+using DigitalVoting.API.Middlewares;
 using DigitalVoting.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwagger();
+
+builder.Services.AddMiddlewares();
 
 var connectionString = builder.Configuration.GetConnectionString("DigitalVotingCs");
 
@@ -29,6 +32,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("./swagger/v1/swagger.json", "DigitalVoting.API");
     });
 }
+
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseHttpsRedirection();
 

@@ -19,6 +19,7 @@
     <ProjectReference Include="..\DigitalVoting.Core\DigitalVoting.Core.csproj" />
     <ProjectReference Include="..\DigitalVoting.Application\DigitalVoting.Application.csproj" />
     <ProjectReference Include="..\DigitalVoting.Infrastructure\DigitalVoting.Infrastructure.csproj" />
+    <ProjectReference Include="..\DigitalVoting.Shared\DigitalVoting.Shared.csproj" />
   </ItemGroup>
 
 </Project>
