@@ -1,7 +1,10 @@
 using DigitalVoting.API.Extensions;
+using DigitalVoting.API.Filters;
 using DigitalVoting.API.Middlewares;
 using DigitalVoting.Application.Commands.SignUp;
+using DigitalVoting.Application.Validators;
 using DigitalVoting.Infrastructure.Persistence;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+#pragma warning disable CS0618
+builder.Services
+    .AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.SuppressModelStateInvalidFilter = true;
+    })
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<SignUpCommandValidator>());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
