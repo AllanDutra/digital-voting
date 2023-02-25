@@ -1,3 +1,4 @@
+using DigitalVoting.Shared.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -19,7 +20,7 @@ namespace DigitalVoting.API.Filters
                     .Select(e => e.ErrorMessage)
                     .ToList();
 
-                context.Result = new BadRequestObjectResult(new { message = messages[0] });
+                context.Result = new BadRequestObjectResult(new DefaultResponse(messages[0]));
             }
         }
     }

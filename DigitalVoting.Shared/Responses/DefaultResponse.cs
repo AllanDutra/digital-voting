@@ -2,6 +2,11 @@ namespace DigitalVoting.Shared.Responses
 {
     public class DefaultResponse
     {
-        public string Message { get; set; }        
+        public DefaultResponse(string message)
+        {
+            Message = message;
+        }
+
+        public string Message { get; set; }
     }
 }

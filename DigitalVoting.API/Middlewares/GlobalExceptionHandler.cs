@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net;
 using DigitalVoting.Shared.Exceptions;
+using DigitalVoting.Shared.Responses;
 
 namespace DigitalVoting.API.Middlewares
 {
@@ -52,10 +53,7 @@ namespace DigitalVoting.API.Middlewares
 
                 int col = frame.GetFileColumnNumber();
 
-                await context.Response.WriteAsJsonAsync(new
-                {
-                    message = ResponseDetails.Message
-                });
+                await context.Response.WriteAsJsonAsync(new DefaultResponse(ResponseDetails.Message));
             }
         }
         public static class ResponseDetails

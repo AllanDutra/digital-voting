@@ -27,7 +27,7 @@ namespace DigitalVoting.API.Controllers
         {
             await _mediator.Send(command);
 
-            return Ok(new { message = "Successfully registered Voter!" });
+            return Ok(new DefaultResponse("Successfully registered Voter!"));
         }
     }
 }
