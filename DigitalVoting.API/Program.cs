@@ -1,6 +1,8 @@
 using DigitalVoting.API.Extensions;
 using DigitalVoting.API.Middlewares;
+using DigitalVoting.Application.Commands.SignUp;
 using DigitalVoting.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
 
 builder.Services.AddMiddlewares();
+
+builder.Services.AddMediatR(typeof(SignUpCommand));
+
+builder.Services.AddDependencyInjection();
 
 var connectionString = builder.Configuration.GetConnectionString("DigitalVotingCs");
 
