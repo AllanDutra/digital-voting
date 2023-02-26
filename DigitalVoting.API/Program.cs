@@ -31,6 +31,8 @@ builder.Services.AddMediatR(typeof(SignUpCommand));
 
 builder.Services.AddDependencyInjection();
 
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 var connectionString = builder.Configuration.GetConnectionString("DigitalVotingCs");
 
 builder.Services.AddDbContext<DigitalVotingDbContext>(options => options.UseNpgsql(connectionString));
@@ -52,6 +54,8 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

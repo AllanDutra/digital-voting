@@ -22,6 +22,31 @@ namespace DigitalVoting.API.Extensions
                     .Select(a => Path.Combine(Path.GetDirectoryName(currentAssembly.Location), $"{a.Name}.xml"))
                     .Where(f => File.Exists(f)).ToArray();
                 Array.ForEach(xmlDocs, (d) => { c.IncludeXmlComments(d); });
+
+                // ? ADICIONA SERVIÇO DE UTILIZAÇÃO DE TOKEN JWT NO HEADER AUTHORIZATION
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    In = ParameterLocation.Header,
+                    Description = "Bearer Authorization Header"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
             });
 
             return services;
