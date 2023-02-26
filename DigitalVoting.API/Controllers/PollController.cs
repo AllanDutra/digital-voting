@@ -1,4 +1,5 @@
 using DigitalVoting.Application.Commands.CreateNewPoll;
+using DigitalVoting.Application.Commands.DeletePoll;
 using DigitalVoting.Application.Commands.DeletePollOption;
 using DigitalVoting.Shared.Responses;
 using MediatR;
@@ -50,6 +51,24 @@ namespace DigitalVoting.API.Controllers
             var deletedCount = await _mediator.Send(command);
 
             return Ok(new DefaultResponse($"Deleted: {deletedCount}"));
+        }
+
+        /// <summary>
+        /// Deletes a poll and all of its options
+        /// </summary>
+        /// <param name="pollId">Id of the poll you want to delete</param>
+        /// <returns></returns>
+        [HttpDelete("delete/{pollId}")]
+        [ProducesResponseType(typeof(DefaultResponse), 200)]
+        [ProducesResponseType(typeof(DefaultResponse), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        public async Task<IActionResult> DeletePollAsync([FromRoute] Guid pollId)
+        {
+            var command = new DeletePollCommand { PollId = pollId };
+
+            var numberOfDeletedOptions = await _mediator.Send(command);
+
+            return Ok(new DefaultResponse($"Poll deleted with your {numberOfDeletedOptions} options."));
         }
     }
 }
