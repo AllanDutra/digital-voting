@@ -8,6 +8,7 @@ namespace DigitalVoting.API.Extensions
         public static IServiceCollection AddDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IVoterRepository, VoterRepository>();
+            services.AddScoped<IPollRepository, PollRepository>();
 
             return services;
         }
