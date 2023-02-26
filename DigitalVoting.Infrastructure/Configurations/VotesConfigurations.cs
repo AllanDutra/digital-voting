@@ -11,11 +11,10 @@ namespace DigitalVoting.Infrastructure.Configurations
             entity.HasNoKey();
 
             entity.Property(e => e.VoterUsername)
+                .IsRequired()
                 .HasColumnType("character varying")
                 .HasColumnName("Voter_Username");
-            entity.Property(e => e.VotingOptionId)
-                .HasColumnType("character varying")
-                .HasColumnName("VotingOption_Id");
+            entity.Property(e => e.VotingOptionId).HasColumnName("VotingOption_Id");
 
             entity.HasOne(d => d.VoterUsernameNavigation).WithMany()
                 .HasForeignKey(d => d.VoterUsername)

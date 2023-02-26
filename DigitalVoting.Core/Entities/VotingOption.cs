@@ -2,13 +2,13 @@
 
 public partial class VotingOption
 {
-    public string Id { get; set; } = null!;
+    public Guid Id { get; set; }
 
-    public string Description { get; set; } = null!;
+    public string Description { get; set; }
 
     public int? AmountOfVotes { get; set; }
 
-    public string PollId { get; set; } = null!;
+    public Guid PollId { get; set; }
 
-    public virtual Poll Poll { get; set; } = null!;
+    public virtual Poll Poll { get; set; }
 }

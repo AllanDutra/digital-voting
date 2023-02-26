@@ -13,7 +13,9 @@ namespace DigitalVoting.Infrastructure.Configurations
             entity.ToTable("Voter");
 
             entity.Property(e => e.Username).HasColumnType("character varying");
-            entity.Property(e => e.Password).HasColumnType("character varying");
+            entity.Property(e => e.Password)
+                .IsRequired()
+                .HasColumnType("character varying");
         }
     }
 }

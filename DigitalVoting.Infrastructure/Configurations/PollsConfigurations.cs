@@ -11,8 +11,10 @@ namespace DigitalVoting.Infrastructure.Configurations
 
             entity.ToTable("Poll");
 
-            entity.Property(e => e.Id).HasColumnType("character varying");
-            entity.Property(e => e.Description).HasColumnType("character varying");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasColumnType("character varying");
         }
     }
 }

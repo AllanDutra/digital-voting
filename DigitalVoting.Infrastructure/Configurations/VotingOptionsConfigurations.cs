@@ -12,11 +12,11 @@ namespace DigitalVoting.Infrastructure.Configurations
 
             entity.ToTable("VotingOption");
 
-            entity.Property(e => e.Id).HasColumnType("character varying");
-            entity.Property(e => e.Description).HasColumnType("character varying");
-            entity.Property(e => e.PollId)
-                .HasColumnType("character varying")
-                .HasColumnName("Poll_Id");
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasColumnType("character varying");
+            entity.Property(e => e.PollId).HasColumnName("Poll_Id");
 
             entity.HasOne(d => d.Poll).WithMany(p => p.VotingOptions)
                 .HasForeignKey(d => d.PollId)
