@@ -9,6 +9,7 @@ namespace DigitalVoting.API.Extensions
         {
             services.AddScoped<IVoterRepository, VoterRepository>();
             services.AddScoped<IPollRepository, PollRepository>();
+            services.AddScoped<IVotingOptionRepository, VotingOptionRepository>();
 
             return services;
         }
