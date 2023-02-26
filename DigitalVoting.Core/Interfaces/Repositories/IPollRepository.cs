@@ -6,6 +6,8 @@ namespace DigitalVoting.Core.Interfaces.Repositories
     {
         Task AddAsync(Poll poll);
 
+        Task<int> GetNumberOfOptionsByVotingOptionId(Guid votingOptionId);
+
         Task<int> DeleteAsync(Guid pollId);
     }
 }

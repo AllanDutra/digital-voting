@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using DigitalVoting.Core.Entities;
 using DigitalVoting.Core.Interfaces.Repositories;
+using Dapper;
 
 namespace DigitalVoting.Infrastructure.Persistence.Repositories
 {
@@ -15,6 +16,17 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
         public async Task AddAsync(Poll poll)
         {
             await _dbContext.Polls.AddAsync(poll);
+        }
+
+        public async Task<int> GetNumberOfOptionsByVotingOptionId(Guid votingOptionId)
+        {
+            string query = "SELECT COUNT(VO.\"Id\") FROM \"VotingOption\" VO"
+                         + " WHERE VO.\"Poll_Id\" ="
+                         + " (SELECT SUBVO.\"Poll_Id\" FROM \"VotingOption\" SUBVO WHERE SUBVO.\"Id\" = @votingOptionId)";
+
+            int numberOfOptions = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<int>(query, new { votingOptionId });
+
+            return numberOfOptions;
         }
 
         public async Task<int> DeleteAsync(Guid pollId)
