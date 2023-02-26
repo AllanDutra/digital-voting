@@ -1,6 +1,6 @@
 using DigitalVoting.Core.Interfaces.Repositories;
 
-namespace DigitalVoting.Infrastructure.Persistence
+namespace DigitalVoting.Core.Interfaces
 {
     public interface IUnitOfWork
     {

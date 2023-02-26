@@ -1,3 +1,4 @@
+using DigitalVoting.Core.Interfaces;
 using DigitalVoting.Core.Interfaces.Repositories;
 using DigitalVoting.Infrastructure.Persistence;
 using DigitalVoting.Infrastructure.Persistence.Repositories;
