@@ -1,3 +1,4 @@
+using DigitalVoting.Application.Commands.SignIn;
 using DigitalVoting.Application.Commands.SignUp;
 using DigitalVoting.Shared.Responses;
 using MediatR;
@@ -28,6 +29,21 @@ namespace DigitalVoting.API.Controllers
             await _mediator.Send(command);
 
             return Ok(new DefaultResponse("Successfully registered Voter!"));
+        }
+
+        /// <summary>
+        /// Generates a new access token to voter
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("sign-in")]
+        [ProducesResponseType(typeof(SignInResponse), 200)]
+        [ProducesResponseType(typeof(DefaultResponse), 400)]
+        public async Task<IActionResult> SignInAsync([FromBody] SignInCommand command)
+        {
+            string token = await _mediator.Send(command);
+
+            return Ok(new SignInResponse(token));
         }
     }
 }

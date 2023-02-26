@@ -1,4 +1,4 @@
-using DigitalVoting.Core.Interfaces;
+using DigitalVoting.Core.Interfaces.Repositories;
 using DigitalVoting.Infrastructure.Persistence.Repositories;
 
 namespace DigitalVoting.API.Extensions
