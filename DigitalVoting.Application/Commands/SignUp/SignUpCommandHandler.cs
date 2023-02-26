@@ -1,6 +1,6 @@
 using System.Net;
 using DigitalVoting.Core.Entities;
-using DigitalVoting.Core.Interfaces;
+using DigitalVoting.Core.Interfaces.Repositories;
 using DigitalVoting.Shared.Exceptions;
 using DigitalVoting.Shared.Utils;
 using MediatR;
