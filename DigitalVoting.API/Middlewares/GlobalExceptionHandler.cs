@@ -35,7 +35,7 @@ namespace DigitalVoting.API.Middlewares
                 }
                 else
                 {
-                    ResponseDetails.Message = "Tivemos um problema interno no servidor. Tente novamente mais tarde!";
+                    ResponseDetails.Message = "We had an internal server issue. Try again later!";
                     ResponseDetails.StatusCode = HttpStatusCode.InternalServerError;
                 }
 
