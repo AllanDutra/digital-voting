@@ -1,4 +1,5 @@
 using DigitalVoting.Application.Commands.CreateNewPoll;
+using DigitalVoting.Application.Commands.CreatePollOption;
 using DigitalVoting.Application.Commands.DeletePoll;
 using DigitalVoting.Application.Commands.DeletePollOption;
 using DigitalVoting.Shared.Responses;
@@ -33,6 +34,22 @@ namespace DigitalVoting.API.Controllers
             var newPollId = await _mediator.Send(command);
 
             return Ok(new CreateNewPollResponse("A new poll has been created!", newPollId));
+        }
+
+        /// <summary>
+        /// Creates a new poll option for an existing poll.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("create-option")]
+        [ProducesResponseType(typeof(CreateOptionResponse), 200)]
+        [ProducesResponseType(typeof(DefaultResponse), 400)]
+        [ProducesResponseType(typeof(void), 401)]
+        public async Task<IActionResult> CreatePollOptionAsync([FromBody] CreatePollOptionCommand command)
+        {
+            var newVotingOptionId = await _mediator.Send(command);
+
+            return Ok(new CreateOptionResponse("A new option has been created for informed voting!", newVotingOptionId));
         }
 
         /// <summary>
