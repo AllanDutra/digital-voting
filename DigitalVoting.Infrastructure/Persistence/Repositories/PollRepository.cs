@@ -37,5 +37,12 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
 
             return deletedCount;
         }
+
+        public async Task<bool> CheckIfPollExists(Guid pollId)
+        {
+            Poll poll = await _dbContext.Polls.FirstOrDefaultAsync(p => p.Id == pollId);
+
+            return poll != null;
+        }
     }
 }

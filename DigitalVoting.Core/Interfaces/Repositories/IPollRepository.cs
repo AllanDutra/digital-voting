@@ -9,5 +9,7 @@ namespace DigitalVoting.Core.Interfaces.Repositories
         Task<int> GetNumberOfOptionsByVotingOptionId(Guid votingOptionId);
 
         Task<int> DeleteAsync(Guid pollId);
+        
+        Task<bool> CheckIfPollExists(Guid pollId);
     }
 }
