@@ -9,5 +9,7 @@ namespace DigitalVoting.Core.Interfaces.Repositories
         Task<int> DeleteAsync(Guid votingOptionId);
 
         Task<int> DeleteByPollAsync(Guid pollId);
+
+        Task SaveChangesAsync();
     }
 }

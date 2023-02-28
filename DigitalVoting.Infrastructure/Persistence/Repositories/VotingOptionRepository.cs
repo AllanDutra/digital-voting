@@ -34,5 +34,10 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
 
             return deletedCount;
         }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
