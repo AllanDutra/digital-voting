@@ -59,6 +59,7 @@ namespace DigitalVoting.API.Controllers
         [HttpPost("vote")]
         [ProducesResponseType(typeof(DefaultResponse), 200)]
         [ProducesResponseType(typeof(DefaultResponse), 400)]
+        [ProducesResponseType(typeof(DefaultResponse), 404)]
         [ProducesResponseType(typeof(void), 401)]
         public async Task<IActionResult> VoteAsync([FromQuery] VoteCommand command)
         {

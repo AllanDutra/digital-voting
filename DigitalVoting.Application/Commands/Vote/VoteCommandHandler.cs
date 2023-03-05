@@ -35,6 +35,9 @@ namespace DigitalVoting.Application.Commands.VoteCommand
 
             Guid pollId = await _unitOfWork.VotingOptions.GetPollIdAsync(request.VotingOption_Id);
 
+            if (pollId == Guid.Empty)
+                throw new ResponseException("Voting option not found.", HttpStatusCode.NotFound);
+
             bool userAlreadyVotedInThisPoll = await _unitOfWork.Polls.CheckIfUserAlreadyVotedInPollAsync(Voter_Username, pollId);
 
             if (userAlreadyVotedInThisPoll)
