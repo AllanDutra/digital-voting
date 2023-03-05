@@ -33,6 +33,8 @@ builder.Services.AddDependencyInjection();
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
+builder.Services.AddHttpContextAccessor();
+
 var connectionString = builder.Configuration.GetConnectionString("DigitalVotingCs");
 
 builder.Services.AddDbContext<DigitalVotingDbContext>(options => options.UseNpgsql(connectionString));
