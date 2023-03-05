@@ -9,7 +9,13 @@ namespace DigitalVoting.Core.Interfaces.Repositories
         Task<int> GetNumberOfOptionsByVotingOptionId(Guid votingOptionId);
 
         Task<int> DeleteAsync(Guid pollId);
-        
+
         Task<bool> CheckIfPollExists(Guid pollId);
+
+        Task<int> GetAmountOfVotesAsync(Guid pollId);
+
+        Task UpdateAmountOfVotesAsync(Guid pollId, int newAmountOfVotes);
+
+        Task<bool> CheckIfUserAlreadyVotedInPollAsync(string voterUsername, Guid pollId);
     }
 }

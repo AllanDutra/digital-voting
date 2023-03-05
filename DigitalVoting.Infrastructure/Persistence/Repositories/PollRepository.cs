@@ -44,5 +44,30 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
 
             return poll != null;
         }
+
+        public async Task<int> GetAmountOfVotesAsync(Guid pollId)
+        {
+            string query = "SELECT \"AmountOfVotes\" FROM \"Poll\" WHERE \"Id\" = @pollId";
+
+            int amountOfVotes = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<int>(query, new { pollId });
+
+            return amountOfVotes;
+        }
+
+        public async Task UpdateAmountOfVotesAsync(Guid pollId, int newAmountOfVotes)
+        {
+            FormattableString sql = $"UPDATE \"Poll\" SET \"AmountOfVotes\" = {newAmountOfVotes} WHERE \"Id\" = {pollId}";
+
+            await _dbContext.Database.ExecuteSqlInterpolatedAsync(sql);
+        }
+
+        public async Task<bool> CheckIfUserAlreadyVotedInPollAsync(string voterUsername, Guid pollId)
+        {
+            string query = "SELECT COUNT(VVO.\"Id\") AS \"AlreadyVoted\" FROM \"Voter_VotingOption\" VVO WHERE VVO.\"Voter_Username\" = @voterUsername and VVO.\"Poll_Id\" = @pollId";
+
+            int alreadyVoted = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<int>(query, new { voterUsername, pollId });
+
+            return alreadyVoted == 1;
+        }
     }
 }
