@@ -1,3 +1,4 @@
+using Dapper;
 using DigitalVoting.Core.Entities;
 using DigitalVoting.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -35,9 +36,38 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
             return deletedCount;
         }
 
+        public async Task UpdateAmountOfVotesAsync(Guid votingOptionId, int newAmountOfVotes)
+        {
+            string sql = $"UPDATE \"VotingOption\" SET \"AmountOfVotes\" = @newAmountOfVotes WHERE \"Id\" = @votingOptionId";
+
+            await _dbContext.Database.GetDbConnection().ExecuteAsync(sql, new
+            {
+                newAmountOfVotes,
+                votingOptionId
+            });
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> GetAmountOfVotesAsync(Guid votingOptionId)
+        {
+            string sql = $"SELECT \"AmountOfVotes\" FROM \"VotingOption\" WHERE \"Id\" = @votingOptionId";
+
+            int amountOfVotes = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<int>(sql, new { votingOptionId });
+
+            return amountOfVotes;
+        }
+
+        public async Task<Guid> GetPollIdAsync(Guid votingOptionId)
+        {
+            string query = "SELECT VO.\"Poll_Id\" FROM \"VotingOption\" VO WHERE VO.\"Id\" = @votingOptionId";
+
+            Guid pollId = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<Guid>(query, new { votingOptionId });
+
+            return pollId;
         }
     }
 }
