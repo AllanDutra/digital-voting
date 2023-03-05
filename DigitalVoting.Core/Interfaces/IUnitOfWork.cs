@@ -6,7 +6,9 @@ namespace DigitalVoting.Core.Interfaces
     {
         IPollRepository Polls { get; }
 
-        IVotingOptionRepository VotingOptions { get; } 
+        IVotingOptionRepository VotingOptions { get; }
+
+        IVoterVotingOptionRepository VotersVotingOptions { get; }
 
         Task CompleteAsync();
 

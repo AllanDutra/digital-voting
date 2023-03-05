@@ -13,7 +13,7 @@ namespace DigitalVoting.Infrastructure.Persistence
 
         public virtual DbSet<Poll> Polls { get; set; }
 
-        public virtual DbSet<Vote> Votes { get; set; }
+        public virtual DbSet<VoterVotingOption> VotersVotingOptions { get; set; }
 
         public virtual DbSet<Voter> Voters { get; set; }
 

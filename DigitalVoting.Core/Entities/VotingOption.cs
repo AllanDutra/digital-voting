@@ -11,4 +11,6 @@ public partial class VotingOption
     public Guid PollId { get; set; }
 
     public virtual Poll Poll { get; set; }
+
+    public virtual ICollection<VoterVotingOption> VoterVotingOptions { get; } = new List<VoterVotingOption>();
 }

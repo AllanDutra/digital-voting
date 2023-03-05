@@ -8,16 +8,19 @@ namespace DigitalVoting.Infrastructure.Persistence
     {
         private IDbContextTransaction _dbTransaction;
         private readonly DigitalVotingDbContext _dbContext;
-        public UnitOfWork(DigitalVotingDbContext dbContext, IPollRepository pollRepository, IVotingOptionRepository votingOptionRepository)
+        public UnitOfWork(DigitalVotingDbContext dbContext, IPollRepository pollRepository, IVotingOptionRepository votingOptionRepository, IVoterVotingOptionRepository voterVotingOptionRepository)
         {
             _dbContext = dbContext;
             Polls = pollRepository;
             VotingOptions = votingOptionRepository;
+            VotersVotingOptions = voterVotingOptionRepository;
         }
 
         public IPollRepository Polls { get; }
 
         public IVotingOptionRepository VotingOptions { get; }
+
+        public IVoterVotingOptionRepository VotersVotingOptions { get; set; }
 
         public async Task BeginTransactionAsync()
         {
