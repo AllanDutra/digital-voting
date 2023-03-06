@@ -2,6 +2,8 @@ using DigitalVoting.Application.Commands.CreateNewPoll;
 using DigitalVoting.Application.Commands.CreatePollOption;
 using DigitalVoting.Application.Commands.DeletePoll;
 using DigitalVoting.Application.Commands.DeletePollOption;
+using DigitalVoting.Application.Queries.GetAllPolls;
+using DigitalVoting.Core.Models;
 using DigitalVoting.Shared.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -50,6 +52,22 @@ namespace DigitalVoting.API.Controllers
             var newVotingOptionId = await _mediator.Send(command);
 
             return Ok(new CreateOptionResponse("A new option has been created for informed voting!", newVotingOptionId));
+        }
+
+        /// <summary>
+        /// Gets all polls with all their voting options
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("get-all")]
+        [ProducesResponseType(typeof(List<PollModel>), 200)]
+        [ProducesResponseType(typeof(void), 401)]
+        public async Task<IActionResult> GetAllPollsAsync()
+        {
+            GetAllPollsQuery query = new GetAllPollsQuery();
+
+            var polls = await _mediator.Send(query);
+
+            return Ok(polls);
         }
 
         /// <summary>
