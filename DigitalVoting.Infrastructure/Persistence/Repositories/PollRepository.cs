@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DigitalVoting.Core.Entities;
 using DigitalVoting.Core.Interfaces.Repositories;
 using Dapper;
+using DigitalVoting.Core.Models;
 
 namespace DigitalVoting.Infrastructure.Persistence.Repositories
 {
@@ -68,6 +69,27 @@ namespace DigitalVoting.Infrastructure.Persistence.Repositories
             int alreadyVoted = await _dbContext.Database.GetDbConnection().QueryFirstOrDefaultAsync<int>(query, new { voterUsername, pollId });
 
             return alreadyVoted == 1;
+        }
+
+        public async Task<List<PollModel>> GetAllAsync()
+        {
+            string query = "SELECT"
+            + " P.\"Id\","
+            + " P.\"Description\","
+            + " P.\"AmountOfVotes\","
+            + " V.\"Id\" AS \"VotingOptions_Id\","
+            + " V.\"Description\" AS \"VotingOptions_Description\","
+            + " V.\"AmountOfVotes\" AS \"VotingOptions_AmountOfVotes\""
+            + " FROM \"Poll\" P"
+            + " INNER JOIN \"VotingOption\" V ON V.\"Poll_Id\" = P.\"Id\"";
+
+            dynamic data = await _dbContext.Database.GetDbConnection().QueryAsync<dynamic>(query);
+
+            Slapper.AutoMapper.Configuration.AddIdentifiers(typeof(VotingOptionModel), new List<string> { "Id" });
+
+            List<PollModel> polls = (Slapper.AutoMapper.MapDynamic<PollModel>(data) as IEnumerable<PollModel>).ToList();
+
+            return polls;
         }
     }
 }

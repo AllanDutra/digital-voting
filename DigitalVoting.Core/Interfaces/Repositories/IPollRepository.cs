@@ -1,4 +1,5 @@
 using DigitalVoting.Core.Entities;
+using DigitalVoting.Core.Models;
 
 namespace DigitalVoting.Core.Interfaces.Repositories
 {
@@ -17,5 +18,7 @@ namespace DigitalVoting.Core.Interfaces.Repositories
         Task UpdateAmountOfVotesAsync(Guid pollId, int newAmountOfVotes);
 
         Task<bool> CheckIfUserAlreadyVotedInPollAsync(string voterUsername, Guid pollId);
+
+        Task<List<PollModel>> GetAllAsync();
     }
 }
