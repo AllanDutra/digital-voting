@@ -9,7 +9,7 @@ namespace DigitalVoting.API.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DigitalVoting.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DigitalVoting.API", Version = "v1", Description = "The project developed is a digital vote in which the voter can vote in several ballots but only in one option per vote. The following technologies/patterns were used in this project: C#, ASP.NET Core, .NET 7.0, Entity Framework Core, Dapper, PostgreSQL, JWT authentication, FluentValidation, CQRS and Repository Pattern. No \"position\" restrictions were required for the existing methods, just the authentication restriction so that the system can keep track of the people who have already voted." });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
