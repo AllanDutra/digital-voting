@@ -60,7 +60,7 @@ namespace DigitalVoting.API.Controllers
         /// <returns></returns>
         [HttpGet("get-all")]
         [ProducesResponseType(typeof(List<PollModel>), 200)]
-        [ProducesResponseType(typeof(void), 401)]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllPollsAsync()
         {
             GetAllPollsQuery query = new GetAllPollsQuery();
